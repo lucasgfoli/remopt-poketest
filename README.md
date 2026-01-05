@@ -31,7 +31,7 @@ Siga os comandos abaixo no seu terminal:
 
 ```bash
 # 1. Clone o repositório
-git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
+git clone [https://github.com/lucasgfoli/remopt-poketest](https://github.com/lucasgfoli/remopt-poketest)
 
 # 2. Entre na pasta do projeto
 cd nome-do-projeto
