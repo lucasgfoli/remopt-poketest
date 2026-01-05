@@ -9,7 +9,7 @@ import { RootStackParamList } from '../../navigation/AppNavigator';
 
 import { usePokemon } from '../../context/PokemonContext';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Pokemon'>; 
+type Props = NativeStackScreenProps<RootStackParamList, 'Pokemon'>;
 const bgImage = require('../../assets/background2.png')
 
 export default function PokemonScreen({ route, navigation }: Props) {
@@ -23,10 +23,14 @@ export default function PokemonScreen({ route, navigation }: Props) {
 
   if (loading || !pokemon) {
     return (
-      <Loading>
-        <ActivityIndicator size="large" />
-        <YellowText>Carregando Pokémon...</YellowText>
-      </Loading>
+      <Container source={bgImage} resizeMode="cover">
+        <Loading>
+          <ActivityIndicator size="large" color="#fff" />
+          <YellowText style={{ marginTop: 20 }}>
+            Carregando Pokémon...
+          </YellowText>
+        </Loading>
+      </Container>
     );
   }
 
@@ -59,7 +63,6 @@ export default function PokemonScreen({ route, navigation }: Props) {
   );
 }
 
-
 const Container = styled(ImageBackground)`
   flex: 1;
 `;
@@ -76,7 +79,6 @@ const Loading = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #ffff;
 `;
 
 const Header = styled.View`
