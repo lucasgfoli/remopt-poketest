@@ -37,9 +37,10 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
             setLoading(false);
 
             setPrevId(id > 1 ? id - 1 : null);
-            setPrevId(id + 1);
+            setNextId(id + 1);
 
         } catch (error) {
+            setLoading(false);
             Alert.alert(
                 'Erro',
                 'Não foi possível encontrar Pokémon.',
@@ -48,7 +49,8 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
                         text: 'OK',
                         onPress: () => navigation.goBack()
                     }
-            ])
+                ]
+            );
         } 
     }
 
