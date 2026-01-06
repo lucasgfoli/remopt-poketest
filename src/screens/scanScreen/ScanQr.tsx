@@ -1,11 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Text } from 'react-native';
-import {
-    CameraView,
-    BarcodeScanningResult,
-    useCameraPermissions,
-} from 'expo-camera';
-
+import { CameraView, BarcodeScanningResult, useCameraPermissions } from 'expo-camera';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 
@@ -20,23 +15,27 @@ export default function ScannerScreen({ navigation }: Props) {
     }, []);
 
     if (!permission?.granted) {
-        return <Text>Permissão de câmera necessária</Text>;
+        return <Text>Permissão de câmera necessária</Text>
     }
 
-    function handleBarCodeScanned(result: BarcodeScanningResult) {
-        if (scanned.current) return;
+    function handleBarCodeScanned(barCode: BarcodeScanningResult) {
+        if (scanned.current) {
+            return;
+        }
 
-        const id = result.data.split(':')[1]?.trim();
-        if (!id) return;
+        const id = barCode.data.split(':')[1]?.trim();
+
+        if (!id) {
+            return;
+        }
 
         scanned.current = true;
+
         navigation.navigate('Pokemon', { id });
     }
 
     return (
-        <CameraView
-            style={{ flex: 1 }}
-            onBarcodeScanned={handleBarCodeScanned}
-        />
-    );
+        <CameraView style={{ flex: 1 }} onBarcodeScanned={handleBarCodeScanned} />
+    )
 }
+

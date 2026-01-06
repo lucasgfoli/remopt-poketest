@@ -37,7 +37,7 @@ git clone https://github.com/lucasgfoli/remopt-poketest
 cd nome-do-projeto
 
 # 3. Instale as dependências
-npm install
+npm install --legacy-peer-deps
 # ou, se estiver usando yarn:
 # yarn install
 
