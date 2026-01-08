@@ -15,7 +15,8 @@ const bgImage = require('../../assets/background2.png')
 export default function PokemonScreen({ route, navigation }: Props) {
   const { id } = route.params;
 
-  const { pokemon, loading, loadPokemon } = usePokemon();
+  const { pokemon, loading, favorites, loadPokemon, toggleFavorite } = usePokemon();
+  const isFavorite = !!favorites.find(p => p.id === pokemon?.id); // Estudar !! e não deveria ser o id do route.params?
 
   useEffect(() => {
     loadPokemon(Number(id));
@@ -54,6 +55,10 @@ export default function PokemonScreen({ route, navigation }: Props) {
           <YellowText>Nome: {pokemon.name.toUpperCase()}</YellowText>
           <YellowText>Tipo: {pokemon.types}</YellowText>
         </Info>
+
+        <FavoriteButton onPress={() => pokemon && toggleFavorite(pokemon)}>
+          <ButtonText>{isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}</ButtonText>
+        </FavoriteButton>
 
         <Button onPress={() => navigation.navigate('Home')}>
           <ButtonText>Voltar</ButtonText>
@@ -106,6 +111,14 @@ const YellowText = styled.Text`
 
 const Button = styled.TouchableOpacity`
 	background-color: white;
+	padding: 15px;
+  margin-top: 30px;
+	width: 50%;
+	align-items: center;
+`;
+
+const FavoriteButton = styled.TouchableOpacity`
+  background-color: white;
 	padding: 15px;
   margin-top: 30px;
 	width: 50%;

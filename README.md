@@ -43,3 +43,5 @@ npm install --legacy-peer-deps
 
 # 4. Inicie o servidor do Expo
 npx expo start
+# ou, se estiver usando CodeSpace:
+# npx expo start --tunnel

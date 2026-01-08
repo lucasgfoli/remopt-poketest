@@ -11,6 +11,8 @@ interface PokemonContextData {
     nextId: number | null;
     loading: boolean;
     loadPokemon: (id: number) => Promise<void>;
+    favorites: Pokemon[];
+    toggleFavorite: (pokemon: Pokemon) => void;
 }
 
 interface PokemonProviderProps {
@@ -27,6 +29,18 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
 
     const [prevId, setPrevId] = useState<number | null>(null);
     const [nextId, setNextId] = useState<number | null>(null);
+
+    const [favorites, setFavorites] = useState<Pokemon[]>([]);
+
+    const toggleFavorite = (pokemonToAdd: Pokemon) => {
+        const alreadyExists = favorites.some(p => p.id ===pokemonToAdd.id);
+
+        if(alreadyExists) {
+            setFavorites(current => current.filter(p => p.id !== pokemonToAdd.id));
+        } else {
+            setFavorites(current => [...current, pokemonToAdd]); // O que current quer dizer nesse contexto?
+        }
+    }
 
     async function loadPokemon(id: number) {
         setLoading(true);
@@ -61,7 +75,9 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
                 prevId,
                 nextId,
                 loading,
+                favorites,
                 loadPokemon,
+                toggleFavorite,
             }
         }>{children}</PokemonContext.Provider>
     );

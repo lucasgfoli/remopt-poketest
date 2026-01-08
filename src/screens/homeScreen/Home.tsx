@@ -8,7 +8,7 @@ const bgImage = require('../../assets/background.png');
 export default function Home({ navigation }: any) {
 	const [permission, requestPermission] = useCameraPermissions();
 
-	const handlePress = async () => {
+	const scanQr = async () => {
 		if (!permission?.granted) {
 			const { granted } = await requestPermission();
 			if (!granted) {
@@ -18,25 +18,34 @@ export default function Home({ navigation }: any) {
 		}
 
 		navigation.navigate('Scanner');
-	};
+	}
+
+	const favorites = async () => {
+		navigation.navigate('Favorites')
+	}
 
 	return (
 		<Container source={bgImage} resizeMode="cover">
 			<Title>LUCAS GABRIEL FERNANDES OLIVEIRA</Title>
 
-			<ScanButton onPress={handlePress}>
-				<ButtonText>Scannear QRCODE</ButtonText>
-			</ScanButton>
+			<ButtonsWrapper>
+				<ScanButton onPress={scanQr}>
+					<ButtonText>Scannear QRCODE</ButtonText>
+				</ScanButton>
+				<FavoritesButton onPress={favorites}>
+					<ButtonText>Meus favoritos</ButtonText>
+				</FavoritesButton>
+			</ButtonsWrapper>
 		</Container>
 	);
 }
 
 const Container = styled(ImageBackground)`
 	flex: 1;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	padding-top: 60px;
-	padding-bottom: 40px;
+	
 `;
 
 const Title = styled.Text`
@@ -50,8 +59,9 @@ const Title = styled.Text`
 const ScanButton = styled.TouchableOpacity`
 	background-color: white;
 	padding: 20px 10px;
-	width: 50%;
+	width: 80%;
 	align-items: center;
+	margin-bottom: 12px;
 `;
 
 const ButtonText = styled.Text`
@@ -59,3 +69,19 @@ const ButtonText = styled.Text`
 	font-size: 18px;
 	font-weight: bold;
 `;
+
+const FavoritesButton = styled.TouchableOpacity`
+	background-color: white;
+	padding: 20px 10px;
+	width: 80%;
+	align-items: center;
+`;
+
+const ButtonsWrapper = styled.View`
+	position: absolute;
+	bottom: 20px;
+	width: 75%;
+	align-items: center;
+`;
+
+
